@@ -1,26 +1,30 @@
 import React from 'react';
-import { SafeAreaView, View, Text, StyleSheet } from 'react-native';
-
-const globalStyle = { flex: 1 };
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import ColorBox from './components/ColorBox';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'lavender',
+    paddingTop: 50,
     paddingHorizontal: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  text: {
-    fontSize: 40,
-    fontWeight: '600',
+  heading: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
 });
 
 const App = () => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={[globalStyle, styles.container]}>
-        <Text style={styles.text}>Hello World!</Text>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <Text style={styles.heading}>
+          Here are some boxes of different colours
+        </Text>
+        <ColorBox name="Cyan" colorHex="#2aa198" />
+        <ColorBox name="Blue" colorHex="#268bd2" />
+        <ColorBox name="Magenta" colorHex="#d33682" />
+        <ColorBox name="Orange" colorHex="#cb4b16" />
       </View>
     </SafeAreaView>
   );
