@@ -1,36 +1,19 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { Text, SafeAreaView, StyleSheet, FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { COLORS } from './colors';
-import ColorBox from './components/ColorBox';
+import { createStackNavigator } from '@react-navigation/stack';
+import Home from './screens/Home';
+import ColorPalette from './screens/ColorPalette';
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 30,
-    paddingHorizontal: 10,
-  },
-  heading: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 15,
-  },
-});
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <SafeAreaView>
-        <FlatList
-          style={styles.container}
-          data={COLORS}
-          keyExtractor={({ hexCode }) => hexCode}
-          renderItem={({ item }) => (
-            <ColorBox name={item.colorName} hexCode={item.hexCode} />
-          )}
-          ListHeaderComponent={<Text style={styles.heading}>Solarized</Text>}
-        />
-      </SafeAreaView>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="ColorPalette" component={ColorPalette} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
