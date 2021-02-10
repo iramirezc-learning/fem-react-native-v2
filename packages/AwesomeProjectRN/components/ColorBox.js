@@ -15,10 +15,17 @@ const styles = StyleSheet.create({
   },
 });
 
+const lightColors = ['Base2', 'Base3'];
+
 const ColorBox = ({ name, colorHex }) => {
   return (
     <View style={[styles.box, { backgroundColor: colorHex }]}>
-      <Text style={styles.text}>
+      <Text
+        style={[
+          styles.text,
+          { color: lightColors.includes(name) ? 'black' : 'white' },
+        ]}
+      >
         {name} {colorHex}
       </Text>
     </View>

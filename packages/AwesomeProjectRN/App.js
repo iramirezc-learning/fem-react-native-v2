@@ -1,16 +1,17 @@
 import React from 'react';
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, FlatList } from 'react-native';
+import { COLORS } from './colors';
 import ColorBox from './components/ColorBox';
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 50,
+    paddingTop: 30,
     paddingHorizontal: 10,
   },
   heading: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 15,
   },
 });
 
@@ -18,13 +19,14 @@ const App = () => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Text style={styles.heading}>
-          Here are some boxes of different colours
-        </Text>
-        <ColorBox name="Cyan" colorHex="#2aa198" />
-        <ColorBox name="Blue" colorHex="#268bd2" />
-        <ColorBox name="Magenta" colorHex="#d33682" />
-        <ColorBox name="Orange" colorHex="#cb4b16" />
+        <Text style={styles.heading}>Solarized</Text>
+        <FlatList
+          data={COLORS}
+          keyExtractor={({ hexCode }) => hexCode}
+          renderItem={({ item }) => (
+            <ColorBox name={item.colorName} colorHex={item.hexCode} />
+          )}
+        />
       </View>
     </SafeAreaView>
   );
