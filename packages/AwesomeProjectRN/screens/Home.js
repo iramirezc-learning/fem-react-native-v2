@@ -1,24 +1,65 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+  View,
+} from 'react-native';
+import { COLOR_PALETTES } from '../colors';
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: 'white',
   },
   text: {
-    fontSize: 30,
+    fontSize: 18,
     fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  boxes: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  box: {
+    marginRight: 10,
+    width: 40,
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 0.3,
+    borderRadius: 3,
   },
 });
 
 const Home = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('ColorPalette')}>
-        <Text style={styles.text}>Home Screen</Text>
-      </TouchableOpacity>
-    </View>
+    <FlatList
+      style={styles.container}
+      data={COLOR_PALETTES}
+      keyExtractor={({ paletteName }) => paletteName}
+      renderItem={({ item: { colors, paletteName } }) => (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('ColorPalette', {
+              colors,
+              paletteName,
+            })
+          }
+        >
+          <Text style={styles.text}>{paletteName}</Text>
+          <FlatList
+            style={styles.boxes}
+            data={colors.slice(0, 5)}
+            keyExtractor={({ colorName }) => colorName}
+            renderItem={({ item: { hexCode } }) => (
+              <View style={[styles.box, { backgroundColor: hexCode }]} />
+            )}
+          />
+        </TouchableOpacity>
+      )}
+    />
   );
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, FlatList } from 'react-native';
-import { COLORS } from '../colors';
+import { StyleSheet, FlatList } from 'react-native';
 import ColorBox from '../components/ColorBox';
 
 const styles = StyleSheet.create({
@@ -9,23 +8,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: 'white',
   },
-  heading: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 15,
-  },
 });
 
-const ColorPalette = () => {
+const ColorPalette = ({ route }) => {
+  const { colors } = route.params;
+
   return (
     <FlatList
       style={styles.container}
-      data={COLORS}
+      data={colors}
       keyExtractor={({ hexCode }) => hexCode}
       renderItem={({ item }) => (
         <ColorBox name={item.colorName} hexCode={item.hexCode} />
       )}
-      ListHeaderComponent={<Text style={styles.heading}>Solarized</Text>}
     />
   );
 };

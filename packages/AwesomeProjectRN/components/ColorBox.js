@@ -8,6 +8,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
+    borderColor: 'gray',
+    borderWidth: 0.3,
   },
   text: {
     fontWeight: 'bold',
