@@ -15,18 +15,19 @@ const styles = StyleSheet.create({
   },
 });
 
-const lightColors = ['Base2', 'Base3'];
+const getTextColor = (hexCode) => {
+  const isLightColor = parseInt(hexCode.replace('#', ''), 16) > 0xffffff / 1.1;
 
-const ColorBox = ({ name, colorHex }) => {
+  return {
+    color: isLightColor ? 'black' : 'white',
+  };
+};
+
+const ColorBox = ({ name, hexCode }) => {
   return (
-    <View style={[styles.box, { backgroundColor: colorHex }]}>
-      <Text
-        style={[
-          styles.text,
-          { color: lightColors.includes(name) ? 'black' : 'white' },
-        ]}
-      >
-        {name} {colorHex}
+    <View style={[styles.box, { backgroundColor: hexCode }]}>
+      <Text style={[styles.text, getTextColor(hexCode)]}>
+        {name} {hexCode}
       </Text>
     </View>
   );
