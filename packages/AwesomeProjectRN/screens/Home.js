@@ -27,15 +27,16 @@ const Home = ({ navigation }) => {
     }
   });
 
-  const handleRefresh = useCallback(() => {
+  const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
+
+    await fetchColorPalettes();
 
     // Sometimes the request is so fast that
     // the user won't actually know if there was
     // new data, so, we are adding a timeout
     // for better UX?
-    setTimeout(async () => {
-      await fetchColorPalettes();
+    setTimeout(() => {
       setIsRefreshing(false);
     }, 1000);
   });
