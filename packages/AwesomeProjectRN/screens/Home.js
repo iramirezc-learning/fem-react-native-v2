@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
 });
 
 const Home = ({ navigation }) => {
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [pallets, setPallets] = useState(COLOR_PALETTES);
 
   const fetchColorPalettes = useCallback(async () => {
@@ -26,9 +27,18 @@ const Home = ({ navigation }) => {
     }
   });
 
-  useEffect(() => {
-    fetchColorPalettes();
-  }, []);
+  const handleRefresh = useCallback(() => {
+    setIsRefreshing(true);
+
+    // Sometimes the request is so fast that
+    // the user won't actually know if there was
+    // new data, so, we are adding a timeout
+    // for better UX?
+    setTimeout(async () => {
+      await fetchColorPalettes();
+      setIsRefreshing(false);
+    }, 1000);
+  });
 
   return (
     <FlatList
@@ -41,6 +51,8 @@ const Home = ({ navigation }) => {
           palette={item}
         />
       )}
+      refreshing={isRefreshing}
+      onRefresh={handleRefresh}
     />
   );
 };
