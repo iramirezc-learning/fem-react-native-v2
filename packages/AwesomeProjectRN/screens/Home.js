@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, TouchableOpacity, Text } from 'react-native';
 import { COLOR_PALETTES } from '../colors';
 import PalettePreview from '../components/PalettePreview';
 
@@ -8,6 +8,16 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: 'white',
+  },
+  addNewPaletteButton: {
+    paddingVertical: 10,
+    marginBottom: 20,
+  },
+  addNewPaletteText: {
+    color: '#c02d28',
+    fontSize: 18,
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
   },
 });
 
@@ -54,6 +64,16 @@ const Home = ({ navigation }) => {
       )}
       refreshing={isRefreshing}
       onRefresh={handleRefresh}
+      ListHeaderComponent={
+        <TouchableOpacity
+          style={styles.addNewPaletteButton}
+          onPress={() => {
+            navigation.navigate('AddNewPaletteModal');
+          }}
+        >
+          <Text style={styles.addNewPaletteText}>+ Add new color palette</Text>
+        </TouchableOpacity>
+      }
     />
   );
 };
