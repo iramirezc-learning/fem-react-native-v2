@@ -24,11 +24,11 @@ Started On
 
 Completed On
 
-> ⚠️ LIP
+> Feb 14, 2021
 
 Total Pomodoro Time
 
-> ⚠️ LIP
+> 16 hours, 40 minutes! 😅
 
 ## Course Resources
 
