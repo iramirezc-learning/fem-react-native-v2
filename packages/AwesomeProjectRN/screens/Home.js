@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { StyleSheet, FlatList, TouchableOpacity, Text } from 'react-native';
-import { COLOR_PALETTES } from '../colors';
+import { COLOR_PALETTES } from '../data/color-palettes';
 import PalettePreview from '../components/PalettePreview';
 
 const styles = StyleSheet.create({
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [pallets, setPallets] = useState(COLOR_PALETTES);
 
@@ -35,7 +35,7 @@ const Home = ({ navigation }) => {
     if (result.ok) {
       setPallets(palettesFromApi);
     }
-  });
+  }, []);
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
@@ -49,7 +49,17 @@ const Home = ({ navigation }) => {
     setTimeout(() => {
       setIsRefreshing(false);
     }, 1000);
-  });
+  }, [fetchColorPalettes]);
+
+  useEffect(() => {
+    if (route.params && route.params.paletteName) {
+      const { paletteName, colors } = route.params;
+      const newPalettes = [{ paletteName, colors }, ...pallets];
+
+      setPallets(newPalettes);
+    }
+    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+  }, [route.params]);
 
   return (
     <FlatList
